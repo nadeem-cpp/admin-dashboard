@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+    {% include 'cdn.html' %}
+    <!--jquery data table cdn -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.js"></script>
+
+
+    <style>
+        /* Custom styles for the Admin Dashboard */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        /* Custom styles for the navigation bar */
+        .navbar {
+            background-color: #343a40;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        .nav-link {
+            color: #f8f9fa;
+        }
+
+        .nav-link:hover {
+            color: #ffc107;
+        }
+
+        /* Custom styles for the buttons */
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+        }
+
+        .btn-info:hover {
+            background-color: #117a8b;
+            border-color: #117a8b;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background-color: #a71d28;
+            border-color: #a71d28;
+        }
+
+        /* Custom styles for the modal */
+        .modal-header {
+            background-color: #343a40;
+            color: #f8f9fa;
+        }
+
+        .modal-footer {
+            background-color: #f8f9fa;
+        }
+
+        /* Custom styles for the table */
+        .table {
+            background-color: #fff;
+        }
+
+        /* Custom styles for the footer */
+        .footer {
+            background-color: #f8f9fa;
+            color: #6c757d;
+        }
+    </style>
+
+</head>
+<body>
+  <!-- Navigation bar -->
+  {% include 'admin/admin-nav.html' %}
+
+
+  <!-- Admin Dashboard -->
+  <div class="container mt-5">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+      Add New
+      </button>
+      <button class="btn btn-info" id="edit" data-bs-toggle="modal" data-bs-target="#editModel">Edit</button>
+      <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModel" id="delete">Delete</button>
+
+      <!-- add question Modal -->
+      <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Question</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      <label for="statement">Statement</label>
+                      <input type="text" id="statement">
+                      <!-- Options -->
+                      <div class="mt-3">
+                          <label>Option 1</label><input type="text" id="option1">
+
+                      </div>
+                      <div class="mt-3">
+                          <label>Option 2</label><input type="text" id="option2">
+
+                      </div>
+
+                      <div class="mt-3">
+                          <label>Option 3<input type="text" id="option3"> </label>
+
+                      </div>
+                      <div class="mt-3">
+                          <label>Option 4</label><input type="text" id="option4">
+                      </div>
+
+
+                      <!-- Correct Answer -->
+                      <div class="mt-3">
+                          <label for="correct">Correct Answer:</label>
+                          <input type="text" id="correct" placeholder="Enter the correct option number">
+                      </div>
+                  </div>
+
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary" id="submit" data-bs-toggle="modal" data-bs-target="#verifyModel">Submit</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+  <!-- Modal to edit question-->
+  <div class="modal fade" id="editModel" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel1">Add New Question</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <label for="edit-statement">Statement</label>
+                      <input type="text" id="edit-statement">
+                      <!-- Options -->
+                      <div class="mt-3">
+                          <label>Option 1:</label> <input type="text" id="edit-option1">
+                      </div>
+
+                      <div class="mt-3">
+                          <label>Option 2:</label> <input type="text" id="edit-option2">
+                      </div>
+
+                      <div class="mt-3">
+                          <label>Option 3:</label> <input type="text" id="edit-option3">
+                      </div>
+
+                      <div class="mt-3">
+                          <label>Option 4:</label> <input type="text" id="edit-option4">
+                      </div>
+                      <!-- Correct Answer -->
+                      <div class="mt-3">
+                          <label for="correct">Correct Answer:</label>
+                          <input type="text" id="edit-correct" placeholder="Enter the correct option number">
+                      </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" id="edit-btn" >Edit</button>
+
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+      <!-- Modal to delete question-->
+  <div class="modal fade" id="deleteModel" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel2">Delete Question</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <h2>are you sure you want to delete</h2>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="delete-question">Delete</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+
+      <!--questions table -->
+      <div>
+          <table class="table" id="question-table"></table>
+      </div>
+
+
+  <!-- Footer -->
+      {% include 'footer.html' %}
+
+  </div>
+</body>
+<script>
+    $(document).ready(main);
+      function main()
+      {
+          $("#edit").prop("disabled", true)
+          $("#delete").prop("disabled", true)
+          let questionsApi = "/questions"
+          let questionsData
+
+          const dataTable = $("#question-table").DataTable({
+              responsive: true,
+              ajax: {url: questionsApi, dataSrc: "",},
+              destroy: true,
+              columns: [
+                  {data: "_id.$oid", title: "ID"},
+                  {data: "statement", title: "statement"},
+                  {
+                      data: "options",
+                      title: "options",
+                      render: function(data){
+                          return data.join(", ")
+                      }
+                  },
+                  {data: "correct", title: "correct answer"},
+              ]
+          });
+
+          $("#question-table tbody").on("click", "tr", function ()
+          {
+              if ($(this).hasClass("selected"))
+              {
+                  {#$("#edit").prop("disabled", true)#}
+                  // Row is already selected, so deselect it
+                  $(this).removeClass("selected");
+              }
+              else
+              {
+                  $("#edit").prop("disabled", false)
+                  $("#delete").prop("disabled", false)
+
+                  // Deselect any other selected rows and select the clicked row
+                  $("#question-table tbody tr").removeClass("selected");
+                  $(this).addClass("selected");
+              }
+
+              // Get the selected row (if any)
+              const selectedRow = dataTable.row(this);
+              if (selectedRow.any())
+              {
+                  // Row is selected, retrieve the data of the selected row
+                  rowData = selectedRow.data();
+                  console.log(rowData); // Log the data of the selected row to the console
+              }
+          });
+
+          //edit question
+          $("#edit").on("click", function () {
+              $("#edit-statement").val( rowData.statement)
+                  $("#edit-option1").val( rowData.options[0])
+                  $("#edit-option2").val( rowData.options[1])
+                  $("#edit-option3").val( rowData.options[2])
+                  $("#edit-option4").val( rowData.options[3])
+                  $("#edit-correct").val( rowData.correct)
+
+          }
+          );
+
+          //submit edit request
+          $("#edit-btn").on("click", function (event) {
+              event.preventDefault()
+              let data = {
+                  id: rowData._id.$oid,
+                  statement: $("#edit-statement").val(),
+                  options: [
+                      $("#edit-option1").val(),
+                      $("#edit-option2").val(),
+                      $("#edit-option3").val(),
+                      $("#edit-option4").val()
+                  ],
+                  correct: $("#edit-correct").val()
+              }
+
+              console.log(data)
+              $.ajax(
+                  {
+                      type: "put",
+                      url: questionsApi,
+                      contentType: "application/json",
+                      data: JSON.stringify(data),
+                      success: function (response)
+                      {
+                          dataTable.ajax.reload()
+                          console.log(response)
+                      },
+                      error: function (err)
+                      {
+                        console.log(err)
+                      }
+                  }
+              );
+
+          })
+          //delete question
+          $("#delete-question").on("click", function (event)
+          {
+              event.preventDefault()
+              let questionId = {
+                  id: rowData._id.$oid
+              }
+              $.ajax({
+                  type: "delete",
+                  url: questionsApi,
+                  contentType: "application/json",
+                  data: JSON.stringify(questionId),
+                  success: function (response) {
+                      // reload ajax and get latest data
+                      dataTable.ajax.reload()
+                      console.log(response)
+                  },
+                  error: function (err){
+                      console.log(err)
+                  }
+              })
+
+          })
+
+
+          {#add question#}
+          $("#submit").on("click", function (event)
+          {
+              event.preventDefault()
+              console.log("submit clicked")
+
+              const data = {
+                  statement: $("#statement").val(),
+                  options: [
+                      $("#option1").val(),
+                      $("#option2").val(),
+                      $("#option3").val(),
+                      $("#option4").val(),
+                  ],
+                  correct: parseInt($("#correct").val()),
+              }
+              console.log(data)
+              $.ajax({
+                 type: "POST",
+                 url: questionsApi,
+                 contentType: "application/json",
+                 data: JSON.stringify(data),
+                 success: function (response) {
+                     if(response.code === 200)
+                     {
+                         dataTable.ajax.reload()
+                         
+                         $("#msg").text("added")
+                     }
+                     else
+                     {
+                         $("#msg").text("not added")
+                     }
+                 },
+                 error: function (err) {
+                     console.log(err)
+                 }
+             })
+          });
+      }
+
+</script>
+
+</html>
