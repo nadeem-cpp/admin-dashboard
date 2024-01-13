@@ -1,56 +1,56 @@
-**This is flask Admin Dashboard that manage Questions for an E-Learning website**
-# E-Learning Admin Dashboard with Flask
+# Flask Admin Dashboard for E-Learning Questions Management
 
-This project is an E-Learning Admin Dashboard built with Flask on the backend and Bootstrap on the frontend. The dashboard is designed to efficiently manage questions for an E-Learning website. It leverages AJAX for dynamic content updates, optimizing resources, and enhancing the user experience.
+This Flask project is an Admin Dashboard designed to efficiently manage questions for an E-Learning website. The frontend is built using Bootstrap, and the backend leverages Flask. Dynamic content is seamlessly updated through AJAX, enhancing user experience and optimizing resource utilization. MongoDB is used as the database to store and manage data.
 
 ## Features
 
-- **Question Management**: Add, edit, and delete questions with ease.
+- **Bootstrap Frontend**: A responsive and user-friendly frontend built on Bootstrap for easy navigation and a modern look.
+  
+- **Flask Backend**: Utilizes the Flask framework to handle server-side operations and interact with the MongoDB database.
 
-- **Efficient Resource Usage**: Dynamic content updates using AJAX for a seamless user experience.
+- **AJAX Integration**: Dynamically updates content without reloading the entire page, providing a smoother user experience.
 
-- **Bootstrap Frontend**: A responsive and user-friendly frontend design.
-
-## Technologies Used
-
-- **Flask**: A micro web framework written in Python.
-
-- **Bootstrap**: A popular open-source toolkit for developing with HTML, CSS, and JS.
-
-- **AJAX**: Asynchronous JavaScript and XML for dynamic content updates.
+- **MongoDB Database**: Manages and stores data efficiently in a MongoDB database.
 
 ## Getting Started
 
-1. **Clone the Repository**:
+1. **Prerequisites**:
 
-    ```bash
-    git clone https://github.com/yourusername/elearning-admin-dashboard.git
-    cd elearning-admin-dashboard
-    ```
+    - Make sure you have Python installed on your system.
 
-2. **Install Dependencies**:
+    - Install Flask and required dependencies:
 
-    ```bash
-    pip install -r requirements.txt
-    ```
+        ```bash
+        pip install -r requirements.txt
+        ```
 
-3. **Run the Application**:
+    - Install MongoDB and start the MongoDB service.
+
+2. **Configuration**:
+
+    - Open `app.py` and add your MongoDB connection details:
+
+        ```python
+        app.config["MONGODB_SETTINGS"] = {
+            "host": "mongodb://localhost:27017/your_database_name",
+        }
+        ```
+
+3. **Run the App**:
 
     ```bash
     python app.py
     ```
 
-4. **Access the Dashboard**:
-
-    Open your web browser and go to `http://localhost:5000` to access the E-Learning Admin Dashboard.
+    The app will be accessible at `http://localhost:5000`.
 
 ## Usage
 
-- **Question Management**:
+1. Open the dashboard in your web browser.
 
-    - Add a new question, edit existing ones, or delete questions as needed.
+2. Navigate through the different sections to manage questions efficiently.
 
-    - Changes are reflected instantly with the efficient use of AJAX.
+3. Use AJAX-powered features for a seamless user experience.
 
 ## Contributing
 
@@ -65,8 +65,7 @@ This project is open-source and available under the [MIT License](LICENSE).
 For questions or inquiries, feel free to contact the project maintainer:
 
 - Muhammad Nadeem
-- muhammadnad1001100@gmail.com
 
 ---
 
-Thank you for using this E-Learning Admin Dashboard with Flask. We hope it streamlines your question management process and enhances the overall administration of your E-Learning website.
+Thank you for using this Flask Admin Dashboard for E-Learning Questions Management. We hope it streamlines your workflow in managing questions effectively.
